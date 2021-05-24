@@ -34,10 +34,7 @@ namespace StringCalculatorKata
             return stringOfNumbers.Split('\n', 2)[0].Substring(2);
         }
 
-        private static bool HasCustomDelimiter(this string stringOfNumbers)
-        {
-            return stringOfNumbers.StartsWith("//");
-        }
+        private static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
 
         private static int Sum(string stringOfNumbers, string[] separators)
         {
