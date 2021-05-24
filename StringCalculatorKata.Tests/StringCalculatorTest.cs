@@ -47,7 +47,12 @@ namespace StringCalculatorKata.Tests
         public void Handle_new_lines_between_numbers_instead_of_commas()
         {
             CheckAdd("1\n2,3", 6);
-            
+        }
+
+        [Fact]
+        public void Support_a_custom_delimiter_specified_in_a_prefix_section()
+        {
+            CheckAdd("//;\n1;2", 3);
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
