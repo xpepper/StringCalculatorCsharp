@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StringCalculatorKata
+﻿namespace StringCalculatorKata
 {
     public class Class1
     {
