@@ -10,15 +10,10 @@ namespace StringCalculatorKata
             if (stringOfNumbers.IsEmpty())
                 return 0;
 
-            if (stringOfNumbers.Contains(","))
-            {
-                return stringOfNumbers
-                    .Split(",")
-                    .Select(int.Parse)
-                    .Sum();
-            }
-
-            return int.Parse(stringOfNumbers);
+            return stringOfNumbers
+                .Split(",")
+                .Select(int.Parse)
+                .Sum(); 
         }
 
         private static bool IsEmpty(this string aString)
