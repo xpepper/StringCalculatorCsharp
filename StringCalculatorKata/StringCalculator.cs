@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace StringCalculatorKata
 {
@@ -12,7 +13,7 @@ namespace StringCalculatorKata
             if (stringOfNumbers.Contains(","))
             {
                 var numbers = stringOfNumbers.Split(",");
-                return int.Parse(numbers[0]) + int.Parse(numbers[1]);
+                return numbers.ToList().Select(int.Parse).Sum();
             }
             
             return int.Parse(stringOfNumbers);
