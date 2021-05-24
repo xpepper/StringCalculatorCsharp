@@ -5,7 +5,7 @@ namespace StringCalculatorKata
 {
     public static class StringCalculator
     {
-        private static readonly char[] Separators = {',', '\n'};
+        private static readonly string[] Separators = {",", "\n"};
 
         public static int Add(string stringOfNumbers)
         {
@@ -18,15 +18,17 @@ namespace StringCalculatorKata
 
                 var delimiter = strings[0].Substring(2);
                 stringOfNumbers = strings[1];
-                
-                return stringOfNumbers
-                    .Split(delimiter)
-                    .Select(int.Parse)
-                    .Sum();
+
+                return Sum(stringOfNumbers, new[] {delimiter});
             }
 
+            return Sum(stringOfNumbers, Separators);
+        }
+
+        private static int Sum(string stringOfNumbers, string[] separators)
+        {
             return stringOfNumbers
-                .Split(Separators)
+                .Split(separators, StringSplitOptions.None)
                 .Select(int.Parse)
                 .Sum();
         }
