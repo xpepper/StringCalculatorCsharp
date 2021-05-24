@@ -24,6 +24,16 @@ namespace StringCalculatorKata
             return Sum(inputString, Separators);
         }
 
+        private static int Sum(string stringOfNumbers, string[] separators)
+        {
+            var numbers = ParseNumbers(stringOfNumbers, separators);
+
+            if (numbers.HasNegatives())
+                throw new Exception(BuildErrorMessageFor(numbers));
+
+            return numbers.Where(LowerOrEqualTo1000).Sum();
+        }
+
         private static string ExtractStringOfNumbersFrom(string inputString)
         {
             return inputString.Split('\n', 2)[1];
@@ -35,21 +45,6 @@ namespace StringCalculatorKata
         }
 
         private static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
-
-        private static int Sum(string stringOfNumbers, string[] separators)
-        {
-            var numbers = ParseNumbers(stringOfNumbers, separators);
-
-            if (numbers.HasNegatives())
-                throw new Exception(BuildErrorMessageFor(numbers));
-
-            return numbers.Where(LowerOrEqualTo1000).Sum();
-        }
-
-        private static bool LowerOrEqualTo1000(int number)
-        {
-            return number <= 1000;
-        }
 
         private static string BuildErrorMessageFor(List<int> numbers)
         {
@@ -65,13 +60,18 @@ namespace StringCalculatorKata
                 .Select(int.Parse).ToList();
         }
 
+        private static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative());
+
+        private static bool IsEmpty(this string aString) => string.IsNullOrWhiteSpace(aString);
+
         private static Predicate<int> IsNegative()
         {
             return number => number < 0;
         }
 
-        private static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative());
-
-        private static bool IsEmpty(this string aString) => string.IsNullOrWhiteSpace(aString);
+        private static bool LowerOrEqualTo1000(int number)
+        {
+            return number <= 1000;
+        }
     }
 }
