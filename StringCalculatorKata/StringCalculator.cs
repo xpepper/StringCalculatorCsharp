@@ -12,7 +12,7 @@ namespace StringCalculatorKata
             if (stringOfNumbers.IsEmpty())
                 return 0;
 
-            if (stringOfNumbers.StartsWith("//"))
+            if (stringOfNumbers.HasCustomDelimiter())
             {
                 var strings = stringOfNumbers.Split('\n', 2);
 
@@ -23,6 +23,11 @@ namespace StringCalculatorKata
             }
 
             return Sum(stringOfNumbers, Separators);
+        }
+
+        private static bool HasCustomDelimiter(this string stringOfNumbers)
+        {
+            return stringOfNumbers.StartsWith("//");
         }
 
         private static int Sum(string stringOfNumbers, string[] separators)
