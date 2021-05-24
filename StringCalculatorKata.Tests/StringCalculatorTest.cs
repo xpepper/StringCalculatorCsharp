@@ -12,12 +12,4 @@ namespace StringCalculatorKata.Tests
             StringCalculator.Add("").Should().Be(0);
         }
     }
-
-    public static class StringCalculator
-    {
-        public static int Add(string stringOfNumbers)
-        {
-            return 0;
-        }
-    }
 }
