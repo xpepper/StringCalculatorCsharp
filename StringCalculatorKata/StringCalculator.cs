@@ -1,3 +1,5 @@
+using System;
+
 namespace StringCalculatorKata
 {
     public static class StringCalculator
@@ -12,7 +14,7 @@ namespace StringCalculatorKata
 
         private static bool IsEmpty(this string aString)
         {
-            return aString.Equals("");
+            return string.IsNullOrWhiteSpace(aString);
         }
     }
 }

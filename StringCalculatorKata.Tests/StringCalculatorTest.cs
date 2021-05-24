@@ -7,10 +7,13 @@ namespace StringCalculatorKata.Tests
 {
     public class StringCalculatorTest
     {
-        [Fact]
-        public void Return_0_when_the_string_is_empty()
+        [Theory]
+        [InlineData("", 0)]
+        [InlineData(null, 0)]
+        [InlineData("   ", 0)]
+        public void Return_0_when_the_string_is_empty(string stringOfNumbers, int expectedSum)
         {
-            CheckAdd("", 0);
+            CheckAdd(stringOfNumbers, expectedSum);
         }
 
         [Theory]
