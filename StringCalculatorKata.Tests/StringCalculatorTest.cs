@@ -20,7 +20,6 @@ namespace StringCalculatorKata.Tests
         [InlineData("1", 1)]
         [InlineData("2", 2)]
         [InlineData("42", 42)]
-        [InlineData("-42", -42)]
         public void Return_the_value_of_the_number_when_the_string_contains_just_that_number(string stringOfNumbers,
             int expectedSum)
         {
@@ -29,7 +28,7 @@ namespace StringCalculatorKata.Tests
 
         [Theory]
         [InlineData("1,2", 3)]
-        [InlineData("-1,1", 0)]
+        [InlineData("1,1", 2)]
         [InlineData("42,2", 44)]
         public void Return_the_sum_of_the_two_comma_separated_numbers_in_the_string(string stringOfNumbers,
             int expectedSum)
@@ -52,11 +51,17 @@ namespace StringCalculatorKata.Tests
         [Theory]
         [InlineData("//;\n1;2", 3)]
         [InlineData("//|\n1|2|3", 6)]
-        [InlineData("//$\n-1$-2$-3$-4", -10)]
-        [InlineData("//$$\n-1$$-2$$-3$$-4", -10)]
+        [InlineData("//$\n1$2$3$4", 10)]
+        [InlineData("//$$\n1$$2$$3$$4", 10)]
         public void Support_a_custom_delimiter_specified_in_a_prefix_section(string stringOfNumbers, int expectedSum)
         {
             CheckAdd(stringOfNumbers, expectedSum);
+        }
+
+        [Fact]
+        public void Negative_numbers_are_not_allowed()
+        {
+            Assert.Throws<Exception>(() => StringCalculator.Add(("-1")));
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)

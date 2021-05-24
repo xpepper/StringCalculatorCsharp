@@ -40,10 +40,14 @@ namespace StringCalculatorKata
 
         private static int Sum(string stringOfNumbers, string[] separators)
         {
-            return stringOfNumbers
+            var numbers = stringOfNumbers
                 .Split(separators, StringSplitOptions.None)
-                .Select(int.Parse)
-                .Sum();
+                .Select(int.Parse).ToList();
+
+            if (numbers.Exists(n => n < 0))
+                throw new Exception();
+
+            return numbers.Sum();
         }
 
         private static bool IsEmpty(this string aString)
