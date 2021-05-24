@@ -10,10 +10,13 @@ namespace StringCalculatorKata
             if (stringOfNumbers.IsEmpty())
                 return 0;
 
+            if (stringOfNumbers.Contains("\n"))
+                stringOfNumbers = stringOfNumbers.Replace("\n", ",");
+
             return stringOfNumbers
                 .Split(",")
                 .Select(int.Parse)
-                .Sum(); 
+                .Sum();
         }
 
         private static bool IsEmpty(this string aString)

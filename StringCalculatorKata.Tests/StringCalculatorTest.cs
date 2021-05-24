@@ -43,6 +43,13 @@ namespace StringCalculatorKata.Tests
             CheckAdd("1,2,3", 6);
         }
 
+        [Fact]
+        public void Handle_new_lines_between_numbers_instead_of_commas()
+        {
+            CheckAdd("1\n2,3", 6);
+            
+        }
+
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
             StringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);
