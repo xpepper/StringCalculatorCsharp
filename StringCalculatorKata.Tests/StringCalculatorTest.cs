@@ -65,6 +65,12 @@ namespace StringCalculatorKata.Tests
             exception.Message.Should().Be("negatives not allowed: -1,-4");
         }
 
+        [Fact]
+        public void Ignore_numbers_greater_than_1000()
+        {
+            CheckAdd("1,2, 1000, 1001", 1003);
+        }
+
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
             StringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);

@@ -43,7 +43,12 @@ namespace StringCalculatorKata
             if (numbers.HasNegatives())
                 throw new Exception(BuildErrorMessageFor(numbers));
 
-            return numbers.Sum();
+            return numbers.Where(LowerOrEqualTo1000).Sum();
+        }
+
+        private static bool LowerOrEqualTo1000(int number)
+        {
+            return number <= 1000;
         }
 
         private static string BuildErrorMessageFor(List<int> numbers)
