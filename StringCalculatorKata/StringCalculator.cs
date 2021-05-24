@@ -14,8 +14,10 @@ namespace StringCalculatorKata
 
             if (stringOfNumbers.StartsWith("//"))
             {
-                var delimiter = stringOfNumbers.Substring(2, 1);
-                stringOfNumbers = stringOfNumbers.Substring(4);
+                var strings = stringOfNumbers.Split('\n', 2);
+
+                var delimiter = strings[0].Substring(2);
+                stringOfNumbers = strings[1];
                 
                 return stringOfNumbers
                     .Split(delimiter)
