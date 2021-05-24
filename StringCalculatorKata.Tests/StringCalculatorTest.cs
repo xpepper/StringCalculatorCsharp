@@ -26,10 +26,13 @@ namespace StringCalculatorKata.Tests
             CheckAdd(stringOfNumbers, expectedSum);
         }
         
-        [Fact]
-        public void Return_the_sum_of_the_two_comma_separated_numbers_in_the_string()
+        [Theory]
+        [InlineData("1,2", 3)]
+        [InlineData("-1,1", 0)]
+        [InlineData("42,2", 44)]
+        public void Return_the_sum_of_the_two_comma_separated_numbers_in_the_string(string stringOfNumbers, int expectedSum)
         {
-            CheckAdd("1,2", 3);
+            CheckAdd(stringOfNumbers, expectedSum);
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
