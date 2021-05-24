@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculatorKata
@@ -44,15 +45,22 @@ namespace StringCalculatorKata
                 .Split(separators, StringSplitOptions.None)
                 .Select(int.Parse).ToList();
 
-            if (numbers.Exists(n => n < 0))
-                throw new Exception();
+            if (numbers.HasNegatives())
+            {
+                var negativeNumbers = numbers.FindAll(IsNegative());
+                throw new Exception("negatives not allowed: " + string.Join(',', negativeNumbers));
+            }
 
             return numbers.Sum();
         }
 
-        private static bool IsEmpty(this string aString)
+        private static Predicate<int> IsNegative()
         {
-            return string.IsNullOrWhiteSpace(aString);
+            return number => number < 0;
         }
+
+        private static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative());
+
+        private static bool IsEmpty(this string aString) => string.IsNullOrWhiteSpace(aString);
     }
 }
