@@ -5,13 +5,15 @@ namespace StringCalculatorKata
 {
     public static class StringCalculator
     {
+        private static readonly char[] Separators = {',', '\n'};
+
         public static int Add(string stringOfNumbers)
         {
             if (stringOfNumbers.IsEmpty())
                 return 0;
 
             return stringOfNumbers
-                .Split(new char[]{ ',', '\n'})
+                .Split(Separators)
                 .Select(int.Parse)
                 .Sum();
         }
