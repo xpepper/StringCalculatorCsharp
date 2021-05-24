@@ -10,11 +10,8 @@ namespace StringCalculatorKata
             if (stringOfNumbers.IsEmpty())
                 return 0;
 
-            if (stringOfNumbers.Contains("\n"))
-                stringOfNumbers = stringOfNumbers.Replace("\n", ",");
-
             return stringOfNumbers
-                .Split(",")
+                .Split(new char[]{ ',', '\n'})
                 .Select(int.Parse)
                 .Sum();
         }
