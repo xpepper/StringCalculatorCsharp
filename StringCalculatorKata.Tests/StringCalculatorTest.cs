@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using FluentAssertions;
 using Xunit;
 
@@ -12,11 +13,14 @@ namespace StringCalculatorKata.Tests
             CheckAdd("", 0);
         }
 
-        [Fact]
-        public void Return_the_value_of_the_number_when_the_string_contains_just_that_number()
+        [Theory]
+        [InlineData("1", 1)]
+        [InlineData("2", 2)]
+        [InlineData("42", 42)]
+        [InlineData("-42", -42)]
+        public void Return_the_value_of_the_number_when_the_string_contains_just_that_number(string stringOfNumbers, int expectedSum)
         {
-            CheckAdd("1", 1);
-            CheckAdd("2", 2);
+            CheckAdd(stringOfNumbers, expectedSum);
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
