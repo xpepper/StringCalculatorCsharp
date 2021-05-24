@@ -41,17 +41,26 @@ namespace StringCalculatorKata
 
         private static int Sum(string stringOfNumbers, string[] separators)
         {
-            var numbers = stringOfNumbers
-                .Split(separators, StringSplitOptions.None)
-                .Select(int.Parse).ToList();
+            var numbers = ParseNumbers(stringOfNumbers, separators);
 
             if (numbers.HasNegatives())
-            {
-                var negativeNumbers = numbers.FindAll(IsNegative());
-                throw new Exception("negatives not allowed: " + string.Join(',', negativeNumbers));
-            }
+                throw new Exception(BuildErrorMessageFor(numbers));
 
             return numbers.Sum();
+        }
+
+        private static string BuildErrorMessageFor(List<int> numbers)
+        {
+            var negativeNumbers = numbers.FindAll(IsNegative());
+            var errorMessage = "negatives not allowed: " + string.Join(',', negativeNumbers);
+            return errorMessage;
+        }
+
+        private static List<int> ParseNumbers(string stringOfNumbers, string[] separators)
+        {
+            return stringOfNumbers
+                .Split(separators, StringSplitOptions.None)
+                .Select(int.Parse).ToList();
         }
 
         private static Predicate<int> IsNegative()
