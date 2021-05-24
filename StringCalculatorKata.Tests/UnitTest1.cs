@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Xunit;
 
 namespace StringCalculatorKata.Tests
@@ -8,6 +9,7 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void Test1()
         {
+            true.Should().Be(false); // fix me first
         }
     }
 }
