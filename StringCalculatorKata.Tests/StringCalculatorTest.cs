@@ -53,6 +53,8 @@ namespace StringCalculatorKata.Tests
         public void Support_a_custom_delimiter_specified_in_a_prefix_section()
         {
             CheckAdd("//;\n1;2", 3);
+            CheckAdd("//|\n1|2|3", 6);
+            CheckAdd("//$\n-1$-2$-3$-4", -10);
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
