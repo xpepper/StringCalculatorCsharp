@@ -7,22 +7,30 @@ namespace StringCalculatorKata
     {
         private static readonly string[] Separators = {",", "\n"};
 
-        public static int Add(string stringOfNumbers)
+        public static int Add(string inputString)
         {
-            if (stringOfNumbers.IsEmpty())
+            if (inputString.IsEmpty())
                 return 0;
 
-            if (stringOfNumbers.HasCustomDelimiter())
+            if (inputString.HasCustomDelimiter())
             {
-                var strings = stringOfNumbers.Split('\n', 2);
-
-                var delimiter = strings[0].Substring(2);
-                stringOfNumbers = strings[1];
+                var delimiter = ExtractCustomDelimiterFrom(inputString);
+                var stringOfNumbers = ExtractStringOfNumbersFrom(inputString);
 
                 return Sum(stringOfNumbers, new[] {delimiter});
             }
 
-            return Sum(stringOfNumbers, Separators);
+            return Sum(inputString, Separators);
+        }
+
+        private static string ExtractStringOfNumbersFrom(string inputString)
+        {
+            return inputString.Split('\n', 2)[1];
+        }
+
+        private static string ExtractCustomDelimiterFrom(string stringOfNumbers)
+        {
+            return stringOfNumbers.Split('\n', 2)[0].Substring(2);
         }
 
         private static bool HasCustomDelimiter(this string stringOfNumbers)
