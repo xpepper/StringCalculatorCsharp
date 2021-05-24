@@ -12,10 +12,12 @@ namespace StringCalculatorKata
 
             if (stringOfNumbers.Contains(","))
             {
-                var numbers = stringOfNumbers.Split(",");
-                return numbers.ToList().Select(int.Parse).Sum();
+                return stringOfNumbers
+                    .Split(",")
+                    .Select(int.Parse)
+                    .Sum();
             }
-            
+
             return int.Parse(stringOfNumbers);
         }
 
