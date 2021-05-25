@@ -38,6 +38,12 @@ namespace StringCalculatorKata.Tests
             AssertInputSumsTo("1\n2,3", 6);
         }
 
+        [Fact]
+        public void Support_a_custom_delimiter()
+        {
+            AssertInputSumsTo("//;\n1;2", 3);
+        }
+
         private static void AssertInputSumsTo(string inputString, int expected)
         {
             StringCalculator.Add(inputString).Should().Be(expected);

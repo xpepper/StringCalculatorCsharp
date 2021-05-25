@@ -11,6 +11,15 @@ namespace StringCalculatorKata
             if (inputString == Empty)
                 return 0;
 
+            if (inputString.StartsWith("//"))
+            {
+                string delimiter = inputString.Substring(2, 1);
+                string numbers = inputString.Substring(4);
+                return numbers
+                    .Split(delimiter)
+                    .Sum(int.Parse);
+            }
+
             return inputString
                 .Split(',', '\n')
                 .Sum(int.Parse);
