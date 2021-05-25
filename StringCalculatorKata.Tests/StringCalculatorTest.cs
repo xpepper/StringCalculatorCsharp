@@ -11,13 +11,23 @@ namespace StringCalculatorKata.Tests
         {
             new StringCalculator().Add("").Should().Be(0);
         }
+
+        [Fact]
+        public void Return_number_value_when_the_input_string_contains_one_number()
+        {
+            new StringCalculator().Add("3").Should().Be(3);
+            new StringCalculator().Add("1").Should().Be(1);
+            new StringCalculator().Add("42").Should().Be(42);
+        }
     }
 
     public class StringCalculator
     {
         public int Add(string numbers)
         {
-            return 0;
+            if (numbers.Length == 0)
+                return 0;
+            return int.Parse(numbers);
         }
     }
 }
