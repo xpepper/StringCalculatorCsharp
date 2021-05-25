@@ -1,10 +1,13 @@
+using System;
+using static System.String;
+
 namespace StringCalculatorKata
 {
     public static class StringCalculator
     {
         public static int Add(string inputString)
         {
-            if (inputString.Length == 0)
+            if (inputString == Empty)
                 return 0;
 
             if (inputString.Contains(","))
