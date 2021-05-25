@@ -11,12 +11,13 @@ namespace StringCalculatorKata.Tests
             AssertInputSumsTo("", 0);
         }
 
-        [Fact]
-        public void Return_number_value_when_the_input_string_contains_one_number()
+        [Theory]
+        [InlineData("1", 1)]
+        [InlineData("3", 3)]
+        [InlineData("42", 42)]
+        public void Return_number_value_when_the_input_string_contains_one_number(string inputString, int expected)
         {
-            AssertInputSumsTo("1", 1);
-            AssertInputSumsTo("3", 3);
-            AssertInputSumsTo("42", 42);
+            AssertInputSumsTo(inputString, expected);
         }
 
         [Fact]
