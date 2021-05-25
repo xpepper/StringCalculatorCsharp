@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using static System.String;
 
 namespace StringCalculatorKata
@@ -11,8 +13,9 @@ namespace StringCalculatorKata
 
             if (inputString.Contains(","))
             {
-                var numbers = inputString.Split(",");
-                return int.Parse(numbers[0]) + int.Parse(numbers[1]);
+                return inputString
+                    .Split(",")
+                    .Sum(int.Parse);
             }
 
             return int.Parse(inputString);
