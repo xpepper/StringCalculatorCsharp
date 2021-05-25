@@ -13,8 +13,8 @@ namespace StringCalculatorKata
 
             if (inputString.StartsWith("//"))
             {
-                string delimiter = inputString.Substring(2, 1);
-                string numbers = inputString.Substring(4);
+                var delimiter = inputString.Substring(2, 1);
+                var numbers = inputString.Substring(4);
                 return numbers
                     .Split(delimiter)
                     .Sum(int.Parse);
