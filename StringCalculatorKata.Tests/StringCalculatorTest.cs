@@ -19,5 +19,12 @@ namespace StringCalculatorKata.Tests
             StringCalculator.Add("1").Should().Be(1);
             StringCalculator.Add("42").Should().Be(42);
         }
+
+        [Fact]
+        public void Return_the_sum_of_two_comma_separated_numbers()
+        {
+            StringCalculator.Add("1,2").Should().Be(3);
+            StringCalculator.Add("40,2").Should().Be(42);
+        }
     }
 }
