@@ -1,4 +1,3 @@
-using System;
 using static System.String;
 
 namespace StringCalculatorKata
