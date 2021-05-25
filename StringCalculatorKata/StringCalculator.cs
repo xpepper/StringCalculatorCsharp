@@ -6,15 +6,13 @@ namespace StringCalculatorKata
 {
     public static class StringCalculator
     {
-        const string SEPARATOR = ",";
-
         public static int Add(string inputString)
         {
             if (inputString == Empty)
                 return 0;
 
             return inputString
-                .Split(SEPARATOR)
+                .Split(',', '\n')
                 .Sum(int.Parse);
         }
     }

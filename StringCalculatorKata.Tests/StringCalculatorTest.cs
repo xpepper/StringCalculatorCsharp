@@ -25,11 +25,17 @@ namespace StringCalculatorKata.Tests
             AssertInputSumsTo("1,2", 3);
             AssertInputSumsTo("40,2", 42);
         }
-        
+
         [Fact]
         public void Return_the_sum_of_any_amount_of_comma_separated_numbers()
         {
             AssertInputSumsTo("1,2,42,18", 63);
+        }
+
+        [Fact]
+        public void Handle_new_lines_between_numbers_instead_of_commas()
+        {
+            AssertInputSumsTo("1\n2,3", 6);
         }
 
         private static void AssertInputSumsTo(string inputString, int expected)
