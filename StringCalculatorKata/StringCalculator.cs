@@ -11,14 +11,9 @@ namespace StringCalculatorKata
             if (inputString == Empty)
                 return 0;
 
-            if (inputString.Contains(","))
-            {
-                return inputString
-                    .Split(",")
-                    .Sum(int.Parse);
-            }
-
-            return int.Parse(inputString);
+            return inputString
+                .Split(",")
+                .Sum(int.Parse);
         }
     }
 }
