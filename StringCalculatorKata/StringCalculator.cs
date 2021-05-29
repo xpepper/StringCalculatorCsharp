@@ -44,8 +44,6 @@ namespace StringCalculatorKata
             return stringOfNumbers.Split('\n', 2)[0].Substring(2);
         }
 
-        private static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
-
         private static string BuildErrorMessageFor(List<int> numbers)
         {
             var negativeNumbers = numbers.FindAll(IsNegative());
@@ -59,6 +57,8 @@ namespace StringCalculatorKata
                 .Split(separators, StringSplitOptions.None)
                 .Select(int.Parse).ToList();
         }
+
+        private static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
 
         private static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative());
 
