@@ -6,7 +6,13 @@ namespace StringCalculatorKata
 {
     public class StringCalculator
     {
+        private readonly ILogger _logger;
         private static readonly string[] Separators = {",", "\n"};
+
+        public StringCalculator(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public int Add(string inputString)
         {
@@ -24,14 +30,16 @@ namespace StringCalculatorKata
             return Sum(inputString, Separators);
         }
 
-        private static int Sum(string stringOfNumbers, string[] separators)
+        private int Sum(string stringOfNumbers, string[] separators)
         {
             var numbers = ParseNumbers(stringOfNumbers, separators);
 
             if (numbers.HasNegatives())
                 throw new Exception(BuildErrorMessageFor(numbers));
 
-            return numbers.Where(LowerOrEqualTo1000).Sum();
+            var sum = numbers.Where(LowerOrEqualTo1000).Sum();
+            _logger.Write("Add result is " + sum);
+            return sum;
         }
 
         private static string ExtractStringOfNumbersFrom(string inputString)

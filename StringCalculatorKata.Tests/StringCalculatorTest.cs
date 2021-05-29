@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace StringCalculatorKata.Tests
@@ -60,7 +61,7 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void Negative_numbers_are_not_allowed()
         {
-            var exception = Assert.Throws<Exception>(() => new StringCalculator().Add(("-1,1,-4")));
+            var exception = Assert.Throws<Exception>(() => new StringCalculator(new DummyLog()).Add(("-1,1,-4")));
             exception.Message.Should().Be("negatives not allowed: -1,-4");
         }
 
@@ -70,9 +71,25 @@ namespace StringCalculatorKata.Tests
             CheckAdd("1,2, 1000, 1001", 1003);
         }
 
+        [Fact]
+        public void Log_add_result()
+        {
+            var logger = new Mock<ILogger>();
+            new StringCalculator(logger.Object).Add("1,2");
+
+            logger.Verify(l => l.Write("Add result is 3"));
+        }
+
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
-            new StringCalculator().Add(stringOfNumbers).Should().Be(expectedSum);
+            new StringCalculator(new DummyLog()).Add(stringOfNumbers).Should().Be(expectedSum);
+        }
+    }
+
+    internal class DummyLog : ILogger
+    {
+        public void Write(string text)
+        {
         }
     }
 }
