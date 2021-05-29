@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace StringCalculatorKata
 {
-    public static class StringCalculator
+    public class StringCalculator
     {
         private static readonly string[] Separators = {",", "\n"};
 
-        public static int Add(string inputString)
+        public int Add(string inputString)
         {
             if (inputString.IsEmpty())
                 return 0;
@@ -58,12 +58,6 @@ namespace StringCalculatorKata
                 .Select(int.Parse).ToList();
         }
 
-        private static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
-
-        private static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative());
-
-        private static bool IsEmpty(this string aString) => string.IsNullOrWhiteSpace(aString);
-
         private static Predicate<int> IsNegative()
         {
             return number => number < 0;
@@ -73,5 +67,16 @@ namespace StringCalculatorKata
         {
             return number <= 1000;
         }
+    }
+
+    internal static class Extensions
+    {
+        internal static bool HasCustomDelimiter(this string stringOfNumbers) => stringOfNumbers.StartsWith("//");
+
+        internal static bool HasNegatives(this List<int> numbers) => numbers.Exists(IsNegative);
+
+        internal static bool IsEmpty(this string aString) => string.IsNullOrWhiteSpace(aString);
+
+        private static bool IsNegative(this int number) => number < 0;
     }
 }

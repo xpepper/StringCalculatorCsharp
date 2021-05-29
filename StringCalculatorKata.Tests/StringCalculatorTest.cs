@@ -60,7 +60,7 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void Negative_numbers_are_not_allowed()
         {
-            var exception = Assert.Throws<Exception>(() => StringCalculator.Add(("-1,1,-4")));
+            var exception = Assert.Throws<Exception>(() => new StringCalculator().Add(("-1,1,-4")));
             exception.Message.Should().Be("negatives not allowed: -1,-4");
         }
 
@@ -72,7 +72,7 @@ namespace StringCalculatorKata.Tests
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
-            StringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);
+            new StringCalculator().Add(stringOfNumbers).Should().Be(expectedSum);
         }
     }
 }
