@@ -7,11 +7,13 @@ namespace StringCalculatorKata
     public class StringCalculator
     {
         private readonly ILogger _logger;
+        private readonly ILoggerErrorNotifier _loggerErrorNotifier;
         private static readonly string[] Separators = {",", "\n"};
 
-        public StringCalculator(ILogger logger)
+        public StringCalculator(ILogger logger, ILoggerErrorNotifier loggerErrorNotifier)
         {
             _logger = logger;
+            _loggerErrorNotifier = loggerErrorNotifier;
         }
 
         public int Add(string inputString)
@@ -38,7 +40,14 @@ namespace StringCalculatorKata
                 throw new Exception(BuildErrorMessageFor(numbers));
 
             var sum = numbers.Where(LowerOrEqualTo1000).Sum();
-            _logger.Write("Add result is " + sum);
+            try
+            {
+                _logger.Write("Add result is " + sum);
+            }
+            catch (Exception e)
+            {
+                _loggerErrorNotifier.Notify(e.Message);
+            }
             return sum;
         }
 
@@ -55,8 +64,7 @@ namespace StringCalculatorKata
         private static string BuildErrorMessageFor(List<int> numbers)
         {
             var negativeNumbers = numbers.FindAll(IsNegative());
-            var errorMessage = "negatives not allowed: " + string.Join(',', negativeNumbers);
-            return errorMessage;
+            return "negatives not allowed: " + string.Join(',', negativeNumbers);
         }
 
         private static List<int> ParseNumbers(string stringOfNumbers, string[] separators)
