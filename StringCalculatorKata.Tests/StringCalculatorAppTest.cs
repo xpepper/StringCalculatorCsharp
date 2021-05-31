@@ -12,26 +12,29 @@ namespace StringCalculatorKata.Tests
         {
             var consoleSpy = new StringWriter();
             Console.SetOut(consoleSpy);
-            IResultPrinter resultPrinter = new ConsoleResultPrinter();
-            var stringCalculator = new StringCalculator(new DummyLog(), new DummyNotifier(), resultPrinter);
+
+            var stringCalculator =
+                new StringCalculator(new DummyLog(), new DummyNotifier(), new ConsoleResultPrinter());
             var app = new StringCalculatorApp(stringCalculator);
 
             app.run("1,2,3");
 
-            Assert.Equal("The result is 6", consoleSpy.GetStringBuilder().ToString());
+            Assert.Equal("The result is 6\n", consoleSpy.GetStringBuilder().ToString());
         }
     }
 
     public class StringCalculatorApp
     {
+        private readonly StringCalculator _stringCalculator;
+
         public StringCalculatorApp(StringCalculator stringCalculator)
         {
-            throw new System.NotImplementedException();
+            _stringCalculator = stringCalculator;
         }
 
-        public void run(string s)
+        public void run(string stringOfNumbers)
         {
-            throw new System.NotImplementedException();
+            _stringCalculator.Add(stringOfNumbers);
         }
     }
 
@@ -39,7 +42,7 @@ namespace StringCalculatorKata.Tests
     {
         public void printResult(int result)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("The result is {0}", result);
         }
     }
 }
