@@ -61,7 +61,7 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void Negative_numbers_are_not_allowed()
         {
-            var exception = Assert.Throws<Exception>(() => new StringCalculator(new DummyLog(), new DummyNotifier()).Add(("-1,1,-4")));
+            var exception = Assert.Throws<Exception>(() => new StringCalculator(new DummyLog(), new DummyNotifier(), new DummyResultPrinter()).Add(("-1,1,-4")));
             exception.Message.Should().Be("negatives not allowed: -1,-4");
         }
 
@@ -75,7 +75,7 @@ namespace StringCalculatorKata.Tests
         public void Log_add_result()
         {
             var logger = new Mock<ILogger>();
-            new StringCalculator(logger.Object, null).Add("1,2");
+            new StringCalculator(logger.Object, null, new DummyResultPrinter()).Add("1,2");
 
             logger.Verify(l => l.Write("Add result is 3"));
         }
@@ -90,14 +90,33 @@ namespace StringCalculatorKata.Tests
                 .Setup(x => x.Write(It.IsAny<string>()))
                 .Throws(new Exception("an error message"));
 
-            new StringCalculator(logger.Object, loggerErrorNotifier.Object).Add("1,2");
+            new StringCalculator(logger.Object, loggerErrorNotifier.Object, new DummyResultPrinter()).Add("1,2");
 
             loggerErrorNotifier.Verify(l => l.Notify("an error message"));
         }
 
+        [Fact]
+        public void Output_the_result_to_a_result_printer()
+        {
+            var logger = new Mock<ILogger>();
+            var resultPrinter = new Mock<IResultPrinter>();
+            
+            new StringCalculator(logger.Object, null, resultPrinter.Object).Add("1,2,3");
+            
+            resultPrinter.Verify(x => x.printResult(6));
+
+        }
+
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
-            new StringCalculator(new DummyLog(), new DummyNotifier()).Add(stringOfNumbers).Should().Be(expectedSum);
+            new StringCalculator(new DummyLog(), new DummyNotifier(), new DummyResultPrinter()).Add(stringOfNumbers).Should().Be(expectedSum);
+        }
+    }
+
+    public class DummyResultPrinter : IResultPrinter
+    {
+        public void printResult(int result)
+        {
         }
     }
 

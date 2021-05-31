@@ -8,12 +8,15 @@ namespace StringCalculatorKata
     {
         private readonly ILogger _logger;
         private readonly ILoggerErrorNotifier _loggerErrorNotifier;
+        private readonly IResultPrinter _resultPrinterObject;
         private static readonly string[] Separators = {",", "\n"};
 
-        public StringCalculator(ILogger logger, ILoggerErrorNotifier loggerErrorNotifier)
+        public StringCalculator(ILogger logger, ILoggerErrorNotifier loggerErrorNotifier,
+            IResultPrinter resultPrinterObject)
         {
             _logger = logger;
             _loggerErrorNotifier = loggerErrorNotifier;
+            _resultPrinterObject = resultPrinterObject;
         }
 
         public int Add(string inputString)
