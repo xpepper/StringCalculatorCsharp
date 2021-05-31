@@ -118,18 +118,4 @@ namespace StringCalculatorKata.Tests
         {
         }
     }
-
-    internal class DummyNotifier : ILoggerErrorNotifier
-    {
-        public void Notify(string message)
-        {
-        }
-    }
-
-    internal class DummyLog : ILogger
-    {
-        public void Write(string text)
-        {
-        }
-    }
 }
