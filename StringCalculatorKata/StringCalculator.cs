@@ -8,15 +8,12 @@ namespace StringCalculatorKata
     {
         private readonly ILogger _logger;
         private readonly ILoggerErrorNotifier _loggerErrorNotifier;
-        private readonly IResultPrinter _resultPrinter;
         private static readonly string[] Separators = {",", "\n"};
 
-        public StringCalculator(ILogger logger, ILoggerErrorNotifier loggerErrorNotifier,
-            IResultPrinter resultPrinter)
+        public StringCalculator(ILogger logger, ILoggerErrorNotifier loggerErrorNotifier)
         {
             _logger = logger;
             _loggerErrorNotifier = loggerErrorNotifier;
-            _resultPrinter = resultPrinter;
         }
 
         public int Add(string inputString)
@@ -52,8 +49,6 @@ namespace StringCalculatorKata
                 _loggerErrorNotifier.Notify(e.Message);
             }
 
-            _resultPrinter.printResult(sum);
-            
             return sum;
         }
 
