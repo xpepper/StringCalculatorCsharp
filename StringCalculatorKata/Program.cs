@@ -16,17 +16,11 @@ namespace StringCalculatorKata
 
     public class ConsoleErrorNotifier : ILoggerErrorNotifier
     {
-        public void Notify(string message)
-        {
-            Console.Error.WriteLine(message);
-        }
+        public void Notify(string message) => Console.Error.WriteLine(message);
     }
 
     public class ConsoleLogger : ILogger
     {
-        public void Write(string text)
-        {
-            Console.Out.WriteLine(text);
-        }
+        public void Write(string text) => Console.Out.WriteLine(text);
     }
 }
