@@ -104,7 +104,6 @@ namespace StringCalculatorKata.Tests
             new StringCalculator(logger.Object, null, resultPrinter.Object).Add("1,2,3");
             
             resultPrinter.Verify(x => x.printResult(6));
-
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
