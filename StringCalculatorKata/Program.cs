@@ -8,10 +8,25 @@ namespace StringCalculatorKata
         {
             var stringCalculator =
                 new StringCalculator(new ConsoleLogger(), new ConsoleErrorNotifier());
-            var stringCalculatorApp = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter());
+            
+            var stringCalculatorApp =
+                new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), new ConsoleLineReader());
 
-            stringCalculatorApp.run(args[0]);
+            stringCalculatorApp.run();
         }
+    }
+
+    public class ConsoleLineReader : ILineReader
+    {
+        public string ReadLine()
+        {
+            return Console.ReadLine();
+        }
+    }
+
+    public interface ILineReader
+    {
+        string ReadLine();
     }
 
     public class ConsoleErrorNotifier : ILoggerErrorNotifier
