@@ -13,14 +13,14 @@ namespace StringCalculatorKata.Tests
             var consoleSpy = new StringWriter();
             Console.SetOut(consoleSpy);
 
-            var consoleLineReader = new Mock<ILineReader>();
-            consoleLineReader.SetupSequence(console => console.ReadLine())
+            var lineReader = new Mock<ILineReader>();
+            lineReader.SetupSequence(lineReader => lineReader.ReadLine())
                 .Returns("1,2,3")
                 .Returns("");
 
             var stringCalculator =
                 new StringCalculator(new DummyLog(), new DummyNotifier());
-            var app = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), consoleLineReader.Object);
+            var app = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), lineReader.Object);
 
             app.run();
 
