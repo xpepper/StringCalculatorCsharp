@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace StringCalculatorKata
 {
-    public class StringCalculator
+    public static class StringCalculator
     {
         private static readonly string[] Separators = {",", "\n"};
 
-        public int Add(string inputString)
+        public static int Add(string inputString)
         {
             if (inputString.IsEmpty())
                 return 0;
