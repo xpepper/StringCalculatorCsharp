@@ -15,7 +15,7 @@ namespace StringCalculatorKata.Tests
                 resultPrinter.Object, new StubLineReader("1,2,3", 1));
             app.run();
 
-            resultPrinter.Verify(x => x.printResult(6));
+            resultPrinter.Verify(printer => printer.printResult(6));
         }
     }
 }
