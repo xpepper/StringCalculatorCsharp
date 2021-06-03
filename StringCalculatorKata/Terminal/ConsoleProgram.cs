@@ -1,8 +1,7 @@
-using StringCalculatorKata.Terminal;
 
-namespace StringCalculatorKata
+namespace StringCalculatorKata.Terminal
 {
-    public static class Program
+    public static class ConsoleProgram
     {
         public static void Main()
         {
