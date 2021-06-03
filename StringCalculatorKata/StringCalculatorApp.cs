@@ -17,13 +17,12 @@ namespace StringCalculatorKata
         public void run()
         {
             var line = _lineReader.ReadLine();
-            while (! string.IsNullOrEmpty(line))
+            while (!string.IsNullOrEmpty(line))
             {
                 var sum = _stringCalculator.Add(line);
                 _resultPrinter.printResult(sum);
                 line = _lineReader.ReadLine();
             }
         }
-}
-
+    }
 }

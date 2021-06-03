@@ -88,7 +88,7 @@ namespace StringCalculatorKata.Tests
             var loggerErrorNotifier = new Mock<ILoggerErrorNotifier>();
 
             logger
-                .Setup(x => x.Write(It.IsAny<string>()))
+                .Setup(l => l.Write(It.IsAny<string>()))
                 .Throws(new Exception("an error message"));
 
             new StringCalculator(logger.Object, loggerErrorNotifier.Object).Add("1,2");
