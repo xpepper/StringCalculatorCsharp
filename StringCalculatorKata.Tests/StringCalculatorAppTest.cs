@@ -19,13 +19,13 @@ namespace StringCalculatorKata.Tests
                 .Returns("1,2,3")
                 .Returns("");
 
-            var stringCalculator =
-                new StringCalculator(new DummyLog(), new DummyNotifier());
+            var stringCalculator = new StringCalculator(new DummyLog(), new DummyNotifier());
             var app = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), lineReader.Object);
 
             app.run();
 
-            Assert.Equal("The result is 6\n", consoleSpy.GetStringBuilder().ToString());
+            Assert.Equal("The result is 6\n" +
+                         "another input please\n", consoleSpy.GetStringBuilder().ToString());
         }
 
         [Fact]
