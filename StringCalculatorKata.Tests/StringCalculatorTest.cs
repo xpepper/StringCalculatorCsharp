@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace StringCalculatorKata.Tests
@@ -69,6 +70,17 @@ namespace StringCalculatorKata.Tests
         {
             CheckAdd("1,2, 1000, 1001", 1003);
         }
+
+        [Fact]
+        public void TestLogSumAfterAdd()
+        {
+            var loggerMock = new Mock<ILogger>();
+
+            CheckAdd("1,1", 2);
+
+            loggerMock.Verify(x => x.Write("2"));
+        }
+
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
