@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace StringCalculatorKata.Tests
@@ -68,6 +69,17 @@ namespace StringCalculatorKata.Tests
         public void Ignore_numbers_greater_than_1000()
         {
             CheckAdd("1,2, 1000, 1001", 1003);
+        }
+
+        [Fact]
+        public void Logging_add_results()
+        {
+            var logger = new Mock<ILogger>();
+            StringCalculator sc = new StringCalculator(logger.Object);
+
+            sc.Add("3,1");
+
+            logger.Verify(l => l.Write("Add:3,1:4"), Times.Once);
         }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)

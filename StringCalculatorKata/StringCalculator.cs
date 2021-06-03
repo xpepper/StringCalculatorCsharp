@@ -8,6 +8,14 @@ namespace StringCalculatorKata
     {
         private static readonly string[] Separators = {",", "\n"};
 
+        public StringCalculator(ILogger @object)
+        {
+        }
+
+        public StringCalculator()
+        {
+        }
+
         public int Add(string inputString)
         {
             if (inputString.IsEmpty())
