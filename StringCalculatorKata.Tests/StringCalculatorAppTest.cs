@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Moq;
+using Newtonsoft.Json;
 using StringCalculatorKata.Terminal;
 using Xunit;
 
@@ -13,14 +14,10 @@ namespace StringCalculatorKata.Tests
         {
             var consoleSpy = new StringWriter();
             Console.SetOut(consoleSpy);
-
-            var lineReader = new Mock<ILineReader>();
-            lineReader.SetupSequence(lineReader => lineReader.ReadLine())
-                .Returns("1,2,3")
-                .Returns("");
+            Console.SetIn(new StringReader("1,2,3\n"));
 
             var stringCalculator = new StringCalculator(new DummyLog(), new DummyNotifier());
-            var app = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), lineReader.Object);
+            var app = new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), new ConsoleLineReader());
 
             app.run();
 
