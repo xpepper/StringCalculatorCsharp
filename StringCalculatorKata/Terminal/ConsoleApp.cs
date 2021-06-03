@@ -4,7 +4,7 @@ namespace StringCalculatorKata
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var stringCalculator =
                 new StringCalculator(new ConsoleLogger(), new ConsoleErrorNotifier());
