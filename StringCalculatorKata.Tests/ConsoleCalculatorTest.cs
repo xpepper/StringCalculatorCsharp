@@ -14,7 +14,7 @@ namespace StringCalculatorKata.Tests
         {
             var sw = new StringWriter();
             Console.SetOut(sw);
-            
+
             ConsoleCalculator.Program.Main(new string[] { "1,2,3" });
 
             Assert.Equal("The result is 6", sw.ToString());

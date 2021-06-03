@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleCalculator": {
+      "commandName": "Project",
+      "commandLineArgs": "1,2"
+    }
+  }
+}
