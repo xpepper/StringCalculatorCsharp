@@ -6,11 +6,16 @@ namespace StringCalculatorKata
     {
         public static void Main()
         {
-            var stringCalculator =
-                new StringCalculator(new ConsoleLogger(), new ConsoleErrorNotifier());
-            
-            var stringCalculatorApp =
-                new StringCalculatorApp(stringCalculator, new ConsoleResultPrinter(), new ConsoleLineReader());
+            var stringCalculator = new StringCalculator(
+                new ConsoleLogger(),
+                new ConsoleErrorNotifier()
+            );
+
+            var stringCalculatorApp = new StringCalculatorApp(
+                stringCalculator,
+                new ConsoleResultPrinter(),
+                new ConsoleLineReader()
+            );
 
             stringCalculatorApp.run();
         }
