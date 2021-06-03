@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Moq;
+using StringCalculatorKata.Terminal;
 using Xunit;
 
 namespace StringCalculatorKata.Tests
@@ -38,30 +39,6 @@ namespace StringCalculatorKata.Tests
             app.run();
 
             resultPrinter.Verify(x => x.printResult(6));
-        }
-    }
-
-    public class StubLineReader : ILineReader
-    {
-        private readonly string _input;
-        private readonly int _repeatTimes;
-        private int _times = 0;
-
-        public StubLineReader(string input, int repeatTimes)
-        {
-            _input = input;
-            _repeatTimes = repeatTimes;
-        }
-
-        public string ReadLine()
-        {
-            if (_times < _repeatTimes)
-            {
-                _times++;
-                return _input;
-            }
-
-            return "";
         }
     }
 }
