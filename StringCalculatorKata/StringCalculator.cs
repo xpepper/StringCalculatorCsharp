@@ -9,10 +9,12 @@ namespace StringCalculatorKata
 		private static readonly string[] Separators = { ",", "\n" };
 
 		private ILogger logger { get; set; }
+		private IWebService webService { get; set; }
 
-		public StringCalculator(ILogger logger)
+		public StringCalculator(ILogger logger, IWebService webService)
 		{
 			this.logger = logger;
+			this.webService = webService;
 		}
 
 
