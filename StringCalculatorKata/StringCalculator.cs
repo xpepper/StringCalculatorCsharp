@@ -6,6 +6,7 @@ namespace StringCalculatorKata
 {
     public class StringCalculator
     {
+        private const int EMPTY_VALUES_RESULT = 0;
         private static readonly string[] Separators = { ",", "\n" };
         private ILogger logger;
 
@@ -17,7 +18,12 @@ namespace StringCalculatorKata
         public int Add(string inputString)
         {
             if (inputString.IsEmpty())
-                return 0;
+            {
+
+
+                logger.Write(EMPTY_VALUES_RESULT.ToString());
+                return EMPTY_VALUES_RESULT;
+            }
 
             if (inputString.HasCustomDelimiter())
             {

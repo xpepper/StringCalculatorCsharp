@@ -85,6 +85,18 @@ namespace StringCalculatorKata.Tests
             loggerMock.Verify(x => x.Write("2"));
         }
 
+        [Fact]
+        public void TestLogSumAfterEmptyAdd()
+        {
+            var loggerMock = new Mock<ILogger>();
+
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            stringCalculator.Add(string.Empty);
+
+            loggerMock.Verify(x => x.Write("0"));
+        }
+
+
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
