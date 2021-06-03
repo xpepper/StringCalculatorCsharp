@@ -61,7 +61,10 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void Negative_numbers_are_not_allowed()
         {
-            var exception = Assert.Throws<Exception>(() => StringCalculator.Add(("-1,1,-4")));
+            var loggerMock = new Mock<ILogger>();
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+
+            var exception = Assert.Throws<Exception>(() => stringCalculator.Add(("-1,1,-4")));
             exception.Message.Should().Be("negatives not allowed: -1,-4");
         }
 
@@ -76,7 +79,8 @@ namespace StringCalculatorKata.Tests
         {
             var loggerMock = new Mock<ILogger>();
 
-            CheckAdd("1,1", 2);
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            stringCalculator.Add("1,1");
 
             loggerMock.Verify(x => x.Write("2"));
         }
@@ -84,7 +88,9 @@ namespace StringCalculatorKata.Tests
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
-            StringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);
+            var loggerMock = new Mock<ILogger>();
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            stringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);
         }
     }
 }

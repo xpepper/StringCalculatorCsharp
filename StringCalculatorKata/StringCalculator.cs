@@ -4,11 +4,17 @@ using System.Linq;
 
 namespace StringCalculatorKata
 {
-    public static class StringCalculator
+    public class StringCalculator
     {
-        private static readonly string[] Separators = {",", "\n"};
+        private static readonly string[] Separators = { ",", "\n" };
+        private ILogger logger;
 
-        public static int Add(string inputString)
+        public StringCalculator(ILogger logger)
+        {
+            this.logger = logger;
+        }
+
+        public int Add(string inputString)
         {
             if (inputString.IsEmpty())
                 return 0;
@@ -18,20 +24,25 @@ namespace StringCalculatorKata
                 var delimiter = ExtractCustomDelimiterFrom(inputString);
                 var stringOfNumbers = ExtractStringOfNumbersFrom(inputString);
 
-                return Sum(stringOfNumbers, new[] {delimiter});
+                return Sum(stringOfNumbers, new[] { delimiter });
             }
 
             return Sum(inputString, Separators);
+
         }
 
-        private static int Sum(string stringOfNumbers, string[] separators)
+        private int Sum(string stringOfNumbers, string[] separators)
         {
             var numbers = ParseNumbers(stringOfNumbers, separators);
 
             if (numbers.HasNegatives())
                 throw new Exception(BuildErrorMessageFor(numbers));
 
-            return numbers.Where(LowerOrEqualTo1000).Sum();
+            int sum = numbers.Where(LowerOrEqualTo1000).Sum();
+
+            logger.Write(sum.ToString());
+
+            return sum;
         }
 
         private static string ExtractStringOfNumbersFrom(string inputString)
