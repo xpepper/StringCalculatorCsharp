@@ -9,32 +9,30 @@ namespace StringCalculatorKata
         private const int EMPTY_VALUES_RESULT = 0;
         private static readonly string[] Separators = { ",", "\n" };
         private ILogger logger;
+        private readonly IWebService webService;
 
-        public StringCalculator(ILogger logger)
+        public StringCalculator(ILogger logger, IWebService webService)
         {
             this.logger = logger;
+            this.webService = webService;
         }
 
         public int Add(string inputString)
         {
-            if (inputString.IsEmpty())
-            {
+                if (inputString.IsEmpty())
+                {
+                    WriteLog(EMPTY_VALUES_RESULT.ToString());
+                    return EMPTY_VALUES_RESULT;
+                }
 
+                if (inputString.HasCustomDelimiter())
+                {
+                    var delimiter = ExtractCustomDelimiterFrom(inputString);
+                    var stringOfNumbers = ExtractStringOfNumbersFrom(inputString);
 
-                logger.Write(EMPTY_VALUES_RESULT.ToString());
-                return EMPTY_VALUES_RESULT;
-            }
-
-            if (inputString.HasCustomDelimiter())
-            {
-                var delimiter = ExtractCustomDelimiterFrom(inputString);
-                var stringOfNumbers = ExtractStringOfNumbersFrom(inputString);
-
-                return Sum(stringOfNumbers, new[] { delimiter });
-            }
-
-            return Sum(inputString, Separators);
-
+                    return Sum(stringOfNumbers, new[] { delimiter });
+                }
+                return Sum(inputString, Separators);
         }
 
         private int Sum(string stringOfNumbers, string[] separators)
@@ -46,9 +44,21 @@ namespace StringCalculatorKata
 
             int sum = numbers.Where(LowerOrEqualTo1000).Sum();
 
-            logger.Write(sum.ToString());
+            WriteLog(sum.ToString());
 
             return sum;
+        }
+
+        private void WriteLog(string logMessage)
+        {
+            try
+            {
+                logger.Write(logMessage);
+            }
+            catch (Exception exception)
+            {
+                this.webService.Send(exception.Message);
+            }
         }
 
         private static string ExtractStringOfNumbersFrom(string inputString)

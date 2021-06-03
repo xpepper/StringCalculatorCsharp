@@ -62,7 +62,9 @@ namespace StringCalculatorKata.Tests
         public void Negative_numbers_are_not_allowed()
         {
             var loggerMock = new Mock<ILogger>();
-            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            var webServiceMock = new Mock<IWebService>();
+
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object, webServiceMock.Object);
 
             var exception = Assert.Throws<Exception>(() => stringCalculator.Add(("-1,1,-4")));
             exception.Message.Should().Be("negatives not allowed: -1,-4");
@@ -79,7 +81,7 @@ namespace StringCalculatorKata.Tests
         {
             var loggerMock = new Mock<ILogger>();
 
-            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object, null);
             stringCalculator.Add("1,1");
 
             loggerMock.Verify(x => x.Write("2"));
@@ -90,18 +92,32 @@ namespace StringCalculatorKata.Tests
         {
             var loggerMock = new Mock<ILogger>();
 
-            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object, null);
             stringCalculator.Add(string.Empty);
 
             loggerMock.Verify(x => x.Write("0"));
         }
 
+        [Fact]
+        public void TestNotifyWebServiceWhenLoggerThrowAnException()
+        {
+            string exceptionMessage = "IWebService: log throw an exception...";
 
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(x => x.Write(It.IsAny<string>())).Throws(new Exception(exceptionMessage));
+
+            var webServiceMock = new Mock<IWebService>();
+
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object, webServiceMock.Object);
+            stringCalculator.Add(string.Empty);
+
+            webServiceMock.Verify(x => x.Send(exceptionMessage));
+        }
 
         private static void CheckAdd(string stringOfNumbers, int expectedSum)
         {
             var loggerMock = new Mock<ILogger>();
-            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object);
+            StringCalculator stringCalculator = new StringCalculator(loggerMock.Object, null);
             stringCalculator.Add(stringOfNumbers).Should().Be(expectedSum);
         }
     }
